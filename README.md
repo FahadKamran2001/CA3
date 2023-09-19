@@ -8,6 +8,6 @@ python3 -m venv venv
 
 source venv/bin/install
 
-# install make
+# install makes
 
 make install

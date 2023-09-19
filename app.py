@@ -1,21 +1,16 @@
-from flask import Flask, render_template
-import docker
+# app.py
+from flask import Flask, request, jsonify
+from i200983 import add
+
 app = Flask(__name__)
-@app.route("/")
-def index():
-    # Get the Docker client
-    client = docker.from_env()
-    # Get the GitHub repository name
-    repo_name = "CA3"
-    # Pull the latest image from GitHub
-    client.images.pull(repo_name)
-    # Create a container from the image
-    container = client.containers.create(repo_name)
-    # Start the container
-    container.start()
-    # Get the container's IP address
-    ip_address = container.attrs['NetworkSettings']['IPAddress']
-    # Render the template with the IP address
-    return render_template("index.html", ip_address=ip_address)
+
+@app.route('/add', methods=['POST'])
+def add_numbers():
+    data = request.get_json()
+    num1 = data.get('num1')
+    num2 = data.get('num2')
+    result = add(num1, num2)
+    return jsonify({"result": result})
+
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=5000)

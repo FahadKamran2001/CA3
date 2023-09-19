@@ -22,4 +22,4 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.dckr_pat_7-T0r1xkiiX2WXl1n3e4cULle2E }}
       run: |
         docker buildx create --use
-        docker buildx build -t <dockerhubaccount>/CA3:latest --push .
+        docker buildx build -t <fahadkamran2001>/CA3:latest --push .
